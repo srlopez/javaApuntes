@@ -76,7 +76,8 @@ public class VistaConsola {
     // INPUT GENERICOS -- MEJOR HACER MÁS ESPECIFICOS Y VALIDADOS
     public String leerDatoString(String msg) {
         System.out.print(msg + ": ");
-        return input.next();
+        String s = input.nextLine();
+        return input.nextLine();
     }
 
     public int leerDatoInt(String msg) {

@@ -31,7 +31,6 @@ public class Sistema {
 	public void registrarApunte(Apunte apunte) throws Exception {
 		try {
 			repositorio.cmdRegistrarApunte(apunte);
-
 		} catch (Exception e) {
 			throw e;
 		}
@@ -68,6 +67,5 @@ public class Sistema {
 	public void resetRepositorio(){
 		repositorio.cmdReset();
 	}
-
 
 }

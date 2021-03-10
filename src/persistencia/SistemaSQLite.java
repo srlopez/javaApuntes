@@ -129,7 +129,30 @@ public class SistemaSQLite implements ISistemaDAO {
 
 	@Override
 	public List<String> qryImportes() {
-		return List.of("NO IMPLEMENTADO");
+		// return List.of("NO IMPLEMENTADO");
+		List<String> lista = new ArrayList<>();
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbname);
+			String sql = " SELECT IDCATEGORIA, SUM(IMPORTE) AS VALOR " 
+					+ " FROM APUNTES GROUP BY IDCATEGORIA "
+					+ " UNION " 
+					+ " SELECT IDSUBCATEGORIA, SUM(IMPORTE) " 
+					+ " FROM APUNTES GROUP BY IDSUBCATEGORIA "
+					+ " ORDER BY VALOR DESC";
+
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next())
+				lista.add(String.format("%2d %4.2f", rs.getInt(1), rs.getFloat(2)));
+
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		// System.out.println(lista);
+		return lista;
 	}
 
 	@Override
@@ -210,5 +233,4 @@ public class SistemaSQLite implements ISistemaDAO {
 		return lista;
 	}
 
-	
 }

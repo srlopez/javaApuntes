@@ -11,8 +11,8 @@ public class Main {
 //		String dir = System.getProperty("user.dir");
 		
 		// Run con un Repositorio SQL/Mem
-		ISistemaDAO repo = new SistemaSQLite();
-		//ISistemaDAO repo = new SistemaMFile();
+		//ISistemaDAO repo = new SistemaSQLite();
+		ISistemaDAO repo = new SistemaMFile();
 		Sistema sistema = new Sistema(repo);
 		VistaConsola vista = new VistaConsola("Gastos");
 		ControladorConsola controlador = new ControladorConsola(sistema, vista);
