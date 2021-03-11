@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.security.spec.ECFieldFp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +26,7 @@ public class SistemaMFile implements ISistemaDAO {
 	@Override
 	public void inicializar() {
 		listaC = loadFile(filenameC, line -> {
-			try {
+				try {
 				return this.stringToItemC(line);
 			} catch (Exception e) {
 				// e.printStackTrace();
@@ -42,27 +41,6 @@ public class SistemaMFile implements ISistemaDAO {
 			}
 			return null;
 		});
-		// File miFile = new File(filenameA);
-		// if (miFile.exists()) {
-		// BufferedReader reader;
-		// try {
-		// reader = new BufferedReader(new FileReader(filenameA));
-		// String line = reader.readLine();
-		// //System.out.println(line);
-		// while (line != null) {
-		// try {
-		// Apunte item = stringToItemA(line);
-		// listaA.add(item);
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		// line = reader.readLine();
-		// }
-		// reader.close();
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
-		// }
 	}
 
 	@Override
@@ -153,8 +131,7 @@ public class SistemaMFile implements ISistemaDAO {
 					try {
 						T item = mapperFunction.apply(line);
 						// System.out.println(item);
-
-						lista.add(item);
+						if(item != null)	lista.add(item);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -190,8 +167,7 @@ public class SistemaMFile implements ISistemaDAO {
 		int id = Integer.parseInt(item[0].trim());
 		int idParent = Integer.parseInt(item[1].trim());
 		String descripcion = item[2];
-		Categoria c = new Categoria(id, descripcion, idParent);
-		return c;
+		return new Categoria(id, descripcion, idParent);
 	}
 
 	@Override
