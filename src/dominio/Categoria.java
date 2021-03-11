@@ -5,10 +5,6 @@ public class Categoria {
     public int idParent;
     public String descripcion;
 
-    /**
-     * Constructor 
-     * @throws IllegalArgumentException 
-     */
     public Categoria(int id, String descripcion) throws IllegalArgumentException {
     	if (id<1 || id>9) throw new IllegalArgumentException("Identificador "+id+" no permitido para categoría");
         this.id = id;

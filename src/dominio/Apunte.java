@@ -12,15 +12,6 @@ public class Apunte {
     public String user;
     public String detalle;
 
-    // public Apunte(Date fh, int idCategoria, int idSubCategoria, float importe,
-    // String detalle) {
-    // this.fh = fh;
-    // this.categoria = idCategoria;
-    // this.subCategoria = idSubCategoria;
-    // this.importe = importe;
-    // this.detalle = detalle;
-    // }
-
     public Apunte(Categoria categoria, Categoria subCategoria, float importe, String user, String detalle) {
         this(new Date(), categoria, subCategoria, importe, user, detalle);
     }

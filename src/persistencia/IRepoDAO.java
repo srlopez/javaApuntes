@@ -5,11 +5,11 @@ import java.util.List;
 import dominio.Apunte;
 import dominio.Categoria;
 
-public interface ISistemaDAO {
+public interface IRepoDAO {
 	// De operativa
     void inicializar();
     
-    void finalizar() throws Exception;
+    void finalizar();
 		
     // Comandos de Categorias y Apuntes
     void cmdRegistrarCategoria(Categoria categoria) throws Exception ;
@@ -29,6 +29,5 @@ public interface ISistemaDAO {
 
     // Otros
     void cmdReset();
-
 
 }

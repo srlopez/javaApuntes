@@ -2,32 +2,28 @@ package dominio;
 
 import java.util.List;
 
-import persistencia.ISistemaDAO;
+import persistencia.IRepoDAO;
 
 public class Sistema {
 
-	ISistemaDAO repositorio;
+	IRepoDAO repositorio;
 
-	public Sistema(ISistemaDAO repositorio) {
+	public Sistema(IRepoDAO repositorio) {
 		this.repositorio = repositorio;
 		this.repositorio.inicializar();
 	}
 
-	public  void finalizar() 
-	{	
-		try {
-			this.repositorio.finalizar();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public  void finalizar() {
+		this.repositorio.finalizar();
 	}
 
 	// VALIDAR IDENTIDAD
 	public boolean esIDValido(String id) {
+		// TODO:
         return true;
     }
 
-	// FACHADA A LOS MODELOS DE DOMINIO
+	// FACHADA PARA OBTENER LOS MODELOS DE DOMINIO
 	public void registrarApunte(Apunte apunte) throws Exception {
 		try {
 			repositorio.cmdRegistrarApunte(apunte);

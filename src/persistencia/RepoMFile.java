@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import dominio.Apunte;
 import dominio.Categoria;
 
-public class SistemaMFile implements ISistemaDAO {
+public class RepoMFile implements IRepoDAO {
 
 	String filenameA = "data/apuntes.csv";
 	String filenameC = "data/categorias.csv";
@@ -44,7 +44,7 @@ public class SistemaMFile implements ISistemaDAO {
 	}
 
 	@Override
-	public void finalizar() throws Exception {
+	public void finalizar() {
 		saveFile(filenameC, listaC);
 		saveFile(filenameA, listaA);
 	}

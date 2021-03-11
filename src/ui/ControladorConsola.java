@@ -88,6 +88,7 @@ public class ControladorConsola {
 		}
 	}
 
+	// Casos de USOS
 	public void ucConsultarCategorias() {
 		vista.mostrarMsg("= CATEGORIAS =");
 		vista.mostrarMsgs(sistema.qryCategorias());
@@ -140,7 +141,8 @@ public class ControladorConsola {
 
 	private void ucVerGrafico() {
 		vista.mostrarMsg("= IMPORTES =");
-		vista.mostrarMsgs(sistema.qryImportes());	}
+		vista.mostrarMsgs(sistema.qryImportes());	
+	}
 
 	public void ucRegistrarCategoria() {
 		try {
@@ -185,6 +187,7 @@ public class ControladorConsola {
 		sistema.resetRepositorio();
 	}
 
+	// NADA
 	public void useCase0() {
 		vista.mostrarMsg("UC No implementado");
 	}

@@ -16,7 +16,7 @@ import java.util.List;
 import dominio.Apunte;
 import dominio.Categoria;
 
-public class SistemaSQLite implements ISistemaDAO {
+public class RepoSQLite implements IRepoDAO {
 
 	String dbname = "data/apuntes.db";
 	String script = "data/schemadb.sql";

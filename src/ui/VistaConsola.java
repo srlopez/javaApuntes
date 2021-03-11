@@ -12,15 +12,14 @@ public class VistaConsola {
     private String titulo = "";
     private String credencial = "";
     private ModoTerminal modo;
-    private String opcFIN = "EFL";
-    private String opcNormal = "123" + opcFIN;
-    private String opcUser = opcNormal + "45";
-    private String opcAdmin = opcUser + "1234567890ABCDEFGHIJLMNOPQRSRTUWXYZ";
+    private String opcFIN = "EFL"; //FIN y LOGIN
+    private String opcNormal = opcFIN + "123"; // OPC BASICAS
+    private String opcUser = opcNormal + "45"; // OPC DE US:REGISTRADO
+    private String opcAdmin = opcUser + "1234567890ABCDEFGHIJLMNOPQRSRTUWXYZ"; // TODO LO DEMAS
 
     public VistaConsola(String titulo) {
         this.titulo = titulo;
         this.modo = ModoTerminal.NORMAL;
-        // input.useDelimiter("\n");
     }
 
     // == OPCIONES DE PRESENTACION ==
@@ -38,11 +37,7 @@ public class VistaConsola {
             pln("   7.- Registrar SubCategoría");
             pln("   9.- Reset");
         }
-        if (modo == ModoTerminal.USER || modo == ModoTerminal.ADMIN)
-            pln("   L.- Logout " + credencial);
-        else
-            pln("   L.- Login");
-
+        pln("   L.- Login/Logout " + credencial);
         pln("   E.- Exit/F)IN");
         pln();
         return modo;
