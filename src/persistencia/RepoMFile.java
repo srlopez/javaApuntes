@@ -27,7 +27,7 @@ public class RepoMFile implements IRepoDAO {
 	public void inicializar() {
 		listaC = loadFile(filenameC, line -> {
 				try {
-				return this.stringToItemC(line);
+				return this.lineToCategoria(line);
 			} catch (Exception e) {
 				// e.printStackTrace();
 			}
@@ -35,7 +35,7 @@ public class RepoMFile implements IRepoDAO {
 		});
 		listaA = loadFile(filenameA, line -> {
 			try {
-				return this.stringToItemA(line);
+				return this.lineToApunte(line);
 			} catch (Exception e) {
 				// e.printStackTrace();
 			}
@@ -145,7 +145,7 @@ public class RepoMFile implements IRepoDAO {
 		return lista;
 	}
 
-	private Apunte stringToItemA(String line) throws Exception {
+	private Apunte lineToApunte(String line) throws Exception {
 		String[] item = line.trim().split(",");
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -162,7 +162,7 @@ public class RepoMFile implements IRepoDAO {
 		return new Apunte(fh, c1, c2, importe, user, detalle);
 	}
 
-	private Categoria stringToItemC(String line) throws Exception {
+	private Categoria lineToCategoria(String line) throws Exception {
 		String[] item = line.trim().split(",");
 		int id = Integer.parseInt(item[0].trim());
 		int idParent = Integer.parseInt(item[1].trim());
