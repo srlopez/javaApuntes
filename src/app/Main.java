@@ -6,15 +6,21 @@ import ui.*;
 
 public class Main {
 	public static void main(String[] args) {
-		System.out.println("Empezamos...");
 		// String dir = System.getProperty("user.dir");
 
+		// Empezamos
+		System.out.println("Empezamos...");
+
+		// Preparamos los objetos que van a interaccionar
 		// ISistemaDAO repo = new RepoSQLite();
 		IRepositorio repo = new RepoMFile();
 		Sistema sistema = new Sistema(repo);
 		VistaConsola vista = new VistaConsola("Gastos");
 		ControladorConsola controlador = new ControladorConsola(sistema, vista);
+
+		// Una vez preparados lo lanzamos.
 		controlador.run();
-		System.out.println("Fin App.");
+		// Fin
+		System.out.println("Finalizamos.");
 	}
 }

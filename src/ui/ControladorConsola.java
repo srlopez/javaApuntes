@@ -70,10 +70,9 @@ public class ControladorConsola {
 			}
 		}
 		sistema.finalizar();
-		vista.mostrarMsg("MVC Fin");
 	}
 
-	// Modo de la vista
+	// Modo de la vista  - Login/Logout -  Simulado
 	void validarCambioDeModo() {
 		if (modo == ModoTerminal.NORMAL) {
 			usuarioActivo = vista.leerCredenciales();
@@ -170,7 +169,7 @@ public class ControladorConsola {
 				return;
 			}
 
-			int id = vista.seleccionarCategoria(sistema.qryCategorias(), "Selecciona una categoría", false);
+			int id = vista.seleccionarCategoria(sistema.qryCategorias(), "Indica la categoría", false);
 			if (id == -1) return;
 			Categoria cat = sistema.qryCategoriaID(id);
 
