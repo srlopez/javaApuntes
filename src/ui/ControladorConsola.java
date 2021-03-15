@@ -55,13 +55,13 @@ public class ControladorConsola {
 				break;
 			}
 			case '7': {
+				ucUpdateDeleteCategoria();
+				break;
+			}	
+			case '8': {
 				ucRegistrarSubCategoria();
 				break;
 			}
-			case '8': {
-				ucUpdateDeleteCategoria();
-				break;
-			}			
 			case '9': {
 				ucReset();
 				break;

@@ -34,8 +34,8 @@ public class VistaConsola {
         }
         if (modo == ModoTerminal.ADMIN) {
             pln("   6.- Registrar Categoría");
-            pln("   7.- Registrar SubCategoría");
-            pln("   8.- Update/Delete Categoría");
+            pln("   7.- Update/Delete Categoría");
+            pln("   8.- Registrar SubCategoría");
             pln("   9.- Reset");
         }
         pln("   L.- Login/Logout " + credencial);
