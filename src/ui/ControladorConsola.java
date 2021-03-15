@@ -148,12 +148,13 @@ public class ControladorConsola {
 
 	public void ucCRUDCategoria() {
 		try {
-			vista.mostrarMsg("= CATEGORIAS =");
+			vista.mostrarMsg("= CRUD CATEGORIAS =");
 			vista.mostrarMsgs(sistema.qryCategorias());
 			String cud = vista.leerDatoString("C=Create, U=Update, D=Delete (<Enter>=Cancelar)").toLowerCase();
-			if("cud".indexOf(cud)<0)return;
-			if(cud.equals(""))return;
+			if (cud.equals("")) return;
+			if ("cud".indexOf(cud) < 0) return;
 
+			// CREATE
 			if (cud.equals("c")) {
 				// Obtencion de información de usuario
 				int id = vista.leerDatoInt("Identificador de categoría");
@@ -168,11 +169,12 @@ public class ControladorConsola {
 				vista.mostrarMsg("Registro correcto");
 				return;
 			}
-			
+
 			int id = vista.seleccionarCategoria(sistema.qryCategorias(), "Selecciona una categoría", false);
 			if (id == -1) return;
-
 			Categoria cat = sistema.qryCategoriaID(id);
+
+			// UPDATE
 			if (cud.equals("u")) {
 				String descripcion = vista.editDatoString("Descripción #" + id, cat.descripcion);
 				cat.descripcion = descripcion;
@@ -180,13 +182,14 @@ public class ControladorConsola {
 				vista.mostrarMsg("Registro actualizado");
 				return;
 			}
-			;
+
+			// DELETE
 			if (cud.equals("d")) {
 				sistema.cmdDeleteCategoria(cat);
 				vista.mostrarMsg("Registro elimnado");
 				return;
 			}
-			;
+
 		} catch (Exception e) {
 			vista.mostrarMsg("UC Error: %s", e.getMessage());
 		}

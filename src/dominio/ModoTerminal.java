@@ -7,5 +7,5 @@ package dominio;
  * la aplicación en función de permisos del perfil de usuario
  */
 public enum ModoTerminal {
-    ADMIN, USER, NORMAL
+    NORMAL, USER, ADMIN
 }

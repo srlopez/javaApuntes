@@ -12,9 +12,9 @@ public class VistaConsola {
     private String titulo = "";
     private String credencial = "";
     private ModoTerminal modo;
-    private String opcFIN = "EFL"; // FIN y LOGIN
-    private String opcNormal = opcFIN + "123"; // OPC BASICAS
-    private String opcUser = opcNormal + "45"; // OPC DE US:REGISTRADO
+    private String opcBASICAS = "EFL"; // FIN y LOGIN
+    private String opcNormal = opcBASICAS + "123"; // OPC MINIMAS
+    private String opcUser = opcNormal + "45"; // OPC DE US.REGISTRADO
     private String opcAdmin = opcUser + "01234567890ABCDEFGHIJLMNOPQRSRTUWXYZ"; // TODO LO DEMAS
 
     public VistaConsola(String titulo) {
@@ -24,18 +24,20 @@ public class VistaConsola {
 
     // == OPCIONES DE PRESENTACION ==
     public ModoTerminal mostrarMenu() {
-        pln("   MENU " + titulo);
+        pln("   MENU «" + titulo + "»");
         pln("   1.- Consultar Categorías");
         pln("   2.- Consultar SubCategorías");
         pln("   3.- Consultar Apuntes");
-        if (modo == ModoTerminal.USER || modo == ModoTerminal.ADMIN) {
+        if (modo.ordinal() > ModoTerminal.NORMAL.ordinal() ) {
+            // USER
             pln("   4.- Registrar Apunte");
             pln("   5.- Ver Gráfico de Importes");
-        }
-        if (modo == ModoTerminal.ADMIN) {
-            pln("   6.- CRUD Categoría");
-            pln("   7.- Registrar SubCategoría");
-            pln("   9.- Reset");
+            if (modo.ordinal() > ModoTerminal.USER.ordinal()) {
+                // ADMIN
+                pln("   6.- Administrar Categorías «CRUD»");
+                pln("   7.- Registrar SubCategoría");
+                pln("   9.- Reset");
+            }
         }
         pln("   L.- Login/Logout " + credencial);
         pln("   E.- Exit/F)IN");
@@ -71,7 +73,7 @@ public class VistaConsola {
     // INPUT GENERICOS -- MEJOR HACER MÁS ESPECIFICOS Y VALIDADOS
     public String leerDatoString(String msg) {
         System.out.print(msg + ": ");
-        String s = input.nextLine();
+        String s = input.nextLine(); // No sé por qué necesito dos nextLine
         return input.nextLine();
     }
 
