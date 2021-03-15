@@ -16,7 +16,7 @@ import java.util.List;
 import dominio.Apunte;
 import dominio.Categoria;
 
-public class RepoSQLite implements IRepoDAO {
+public class RepoSQLite implements IRepositorio {
 
 	String dbname = "data/apuntes.db";
 	String script = "data/schemadb.sql";
@@ -73,6 +73,16 @@ public class RepoSQLite implements IRepoDAO {
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+
+	@Override
+	public void cmdUpdateCategoria(Categoria categoria) throws Exception {
+		throw new Exception("cmdUpdateCategoria no implementao");
+	}
+
+	@Override
+	public void cmdDeleteCategoria(Categoria categoria) throws Exception {
+		throw new Exception("cmdDeleteCategoria no implementao");
 	}
 
 	@Override
@@ -232,5 +242,6 @@ public class RepoSQLite implements IRepoDAO {
 		// System.out.println(lista);
 		return lista;
 	}
+
 
 }

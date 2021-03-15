@@ -10,7 +10,7 @@ public class Main {
 		// String dir = System.getProperty("user.dir");
 
 		// ISistemaDAO repo = new RepoSQLite();
-		IRepoDAO repo = new RepoMFile();
+		IRepositorio repo = new RepoMFile();
 		Sistema sistema = new Sistema(repo);
 		VistaConsola vista = new VistaConsola("Gastos");
 		ControladorConsola controlador = new ControladorConsola(sistema, vista);

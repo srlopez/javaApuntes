@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import dominio.Apunte;
 import dominio.Categoria;
 
-public class RepoMFile implements IRepoDAO {
+public class RepoMFile implements IRepositorio {
 
 	String filenameA = "data/apuntes.csv";
 	String filenameC = "data/categorias.csv";
@@ -56,6 +56,19 @@ public class RepoMFile implements IRepoDAO {
 			listaC.add(categoria);
 		else
 			throw new Exception("No te pases");
+	}
+
+	@Override
+	public void cmdUpdateCategoria(Categoria categoria) throws Exception {
+		Categoria c = qryCategoriaID(categoria.id);
+		listaC.remove(c);
+		listaC.add(categoria);
+	}
+
+	@Override
+	public void cmdDeleteCategoria(Categoria categoria) throws Exception {		
+		Categoria c = qryCategoriaID(categoria.id);
+		listaC.remove(c);
 	}
 
 	@Override
@@ -190,5 +203,7 @@ public class RepoMFile implements IRepoDAO {
 		}catch(Exception e){}
 		return new ArrayList<>();
 	}
+
+
 
 }

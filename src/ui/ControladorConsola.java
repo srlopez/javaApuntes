@@ -10,7 +10,7 @@ public class ControladorConsola {
 	VistaConsola vista;
 	ModoTerminal modo;
 
-	String usuarioActivo="";
+	String usuarioActivo = "";
 
 	public ControladorConsola(Sistema sistema, VistaConsola vista) {
 		this.sistema = sistema;
@@ -58,6 +58,10 @@ public class ControladorConsola {
 				ucRegistrarSubCategoria();
 				break;
 			}
+			case '8': {
+				ucUpdateDeleteCategoria();
+				break;
+			}			
 			case '9': {
 				ucReset();
 				break;
@@ -76,14 +80,16 @@ public class ControladorConsola {
 	// Modo de la vista
 	void validarCambioDeModo() {
 		if (modo == ModoTerminal.NORMAL) {
-			usuarioActivo  = vista.leerCredenciales();
+			usuarioActivo = vista.leerCredenciales();
 			String id = usuarioActivo.toLowerCase();
-			if (sistema.esIDValido(usuarioActivo)){
-				if(id.charAt(0)=='a') vista.establecerModo(ModoTerminal.ADMIN);
-				if(id.charAt(0)=='u') vista.establecerModo(ModoTerminal.USER);
+			if (sistema.esIDValido(usuarioActivo)) {
+				if (id.charAt(0) == 'a')
+					vista.establecerModo(ModoTerminal.ADMIN);
+				if (id.charAt(0) == 'u')
+					vista.establecerModo(ModoTerminal.USER);
 			}
-		} else{
-			usuarioActivo  = "";
+		} else {
+			usuarioActivo = "";
 			vista.establecerModo(ModoTerminal.NORMAL);
 		}
 	}
@@ -141,7 +147,7 @@ public class ControladorConsola {
 
 	private void ucVerGrafico() {
 		vista.mostrarMsg("= IMPORTES =");
-		vista.mostrarMsgs(sistema.qryImportes());	
+		vista.mostrarMsgs(sistema.qryImportes());
 	}
 
 	public void ucRegistrarCategoria() {
@@ -157,6 +163,32 @@ public class ControladorConsola {
 			sistema.registrarCategoria(categoria);
 			// Presentación al usuario
 			vista.mostrarMsg("Registro correcto");
+		} catch (Exception e) {
+			vista.mostrarMsg("UC Error: %s", e.getMessage());
+		}
+	}
+
+	public void ucUpdateDeleteCategoria() {
+		try {
+			vista.mostrarMsg("= CATEGORIAS =");
+			int id = vista.seleccionarCategoria(sistema.qryCategorias(), "Selecciona una categoría");
+			if (id == -1)
+				return;
+			String ud = vista.leerDatoString("D=Delete, U=Update, (C=Cancelar)").toLowerCase();
+			Categoria cat = sistema.qryCategoriaID(id);
+			if (ud.equals("u")) {
+				String descripcion = vista.editDatoString("Descripción #" + id, cat.descripcion);
+				cat.descripcion = descripcion;
+				// Ejecución de Caso de Uso
+				sistema.cmdUpdateCategoria(cat);
+				// Presentación al usuario
+				vista.mostrarMsg("Registro actualizado");
+			};
+			if (ud.equals("d")) {
+				sistema.cmdDeleteCategoria(cat);
+				// Presentación al usuario
+				vista.mostrarMsg("Registro elimnado");
+			};
 		} catch (Exception e) {
 			vista.mostrarMsg("UC Error: %s", e.getMessage());
 		}

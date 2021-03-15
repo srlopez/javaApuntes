@@ -2,13 +2,13 @@ package dominio;
 
 import java.util.List;
 
-import persistencia.IRepoDAO;
+import persistencia.IRepositorio;
 
 public class Sistema {
 
-	IRepoDAO repositorio;
+	IRepositorio repositorio;
 
-	public Sistema(IRepoDAO repositorio) {
+	public Sistema(IRepositorio repositorio) {
 		this.repositorio = repositorio;
 		this.repositorio.inicializar();
 	}
@@ -24,7 +24,7 @@ public class Sistema {
     }
 
 	// FACHADA PARA OBTENER LOS MODELOS DE DOMINIO
-	public void registrarApunte(Apunte apunte) throws Exception {
+	public void eleteApunte(Apunte apunte) throws Exception {
 		try {
 			repositorio.cmdRegistrarApunte(apunte);
 		} catch (Exception e) {
@@ -40,6 +40,22 @@ public class Sistema {
 		}
 	}
 		
+    public void cmdUpdateCategoria(Categoria categoria) throws Exception {
+		try {
+			repositorio.cmdUpdateCategoria(categoria);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+    public void cmdDeleteCategoria(Categoria categoria) throws Exception {
+		try {
+			repositorio.cmdDeleteCategoria(categoria);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
 	public List<Apunte> qryApuntes() {
 		return repositorio.qryApuntesTodos();
 	}

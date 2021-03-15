@@ -12,10 +12,10 @@ public class VistaConsola {
     private String titulo = "";
     private String credencial = "";
     private ModoTerminal modo;
-    private String opcFIN = "EFL"; //FIN y LOGIN
+    private String opcFIN = "EFL"; // FIN y LOGIN
     private String opcNormal = opcFIN + "123"; // OPC BASICAS
     private String opcUser = opcNormal + "45"; // OPC DE US:REGISTRADO
-    private String opcAdmin = opcUser + "1234567890ABCDEFGHIJLMNOPQRSRTUWXYZ"; // TODO LO DEMAS
+    private String opcAdmin = opcUser + "01234567890ABCDEFGHIJLMNOPQRSRTUWXYZ"; // TODO LO DEMAS
 
     public VistaConsola(String titulo) {
         this.titulo = titulo;
@@ -35,6 +35,7 @@ public class VistaConsola {
         if (modo == ModoTerminal.ADMIN) {
             pln("   6.- Registrar Categoría");
             pln("   7.- Registrar SubCategoría");
+            pln("   8.- Update/Delete Categoría");
             pln("   9.- Reset");
         }
         pln("   L.- Login/Logout " + credencial);
@@ -75,6 +76,14 @@ public class VistaConsola {
         return input.nextLine();
     }
 
+    public String editDatoString(String msg, String valor) {
+        System.out.print(msg + " (" + valor + "): ");
+        String s = input.nextLine();
+        if (s.equals(""))
+            s = valor;
+        return s;
+    }
+
     public int leerDatoInt(String msg) {
         System.out.print(msg + ": ");
         return input.nextInt();
@@ -93,14 +102,14 @@ public class VistaConsola {
         mostrarMsgs(lista);
         int input = -2;
         while (valores.indexOf(input) < 0)
-            input = leerDatoInt(msg +" (-1=cancelar)");
+            input = leerDatoInt(msg + " (-1=cancelar)");
         return input;
     }
 
     // == MENSAJES OUT ==
     public void mostrarMsgs(Object qry) {
         for (Object o : (List) qry)
-            pln(o.toString().replace(',',' '));
+            pln(o.toString().replace(',', ' '));
     }
 
     public void mostrarMsg(String string) {
