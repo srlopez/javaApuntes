@@ -33,9 +33,8 @@ public class VistaConsola {
             pln("   5.- Ver Gráfico de Importes");
         }
         if (modo == ModoTerminal.ADMIN) {
-            pln("   6.- Registrar Categoría");
-            pln("   7.- Update/Delete Categoría");
-            pln("   8.- Registrar SubCategoría");
+            pln("   6.- CRUD Categoría");
+            pln("   7.- Registrar SubCategoría");
             pln("   9.- Reset");
         }
         pln("   L.- Login/Logout " + credencial);
@@ -79,6 +78,7 @@ public class VistaConsola {
     public String editDatoString(String msg, String valor) {
         System.out.print(msg + " (" + valor + "): ");
         String s = input.nextLine();
+        s = input.nextLine();
         if (s.equals(""))
             s = valor;
         return s;
@@ -94,16 +94,19 @@ public class VistaConsola {
         return input.nextFloat();
     }
 
-    public int seleccionarCategoria(List<Categoria> lista, String msg) {
+    public int seleccionarCategoria(List<Categoria> lista, String msg, Boolean show) {
         List<Integer> valores = new ArrayList<Integer>();
         for (Categoria c : lista)
             valores.add(c.id);
         valores.add(-1);
-        mostrarMsgs(lista);
+        if (show) mostrarMsgs(lista);
         int input = -2;
         while (valores.indexOf(input) < 0)
             input = leerDatoInt(msg + " (-1=cancelar)");
-        return input;
+        return input;    }
+
+    public int seleccionarCategoria(List<Categoria> lista, String msg) {
+        return seleccionarCategoria(lista, msg, true);
     }
 
     // == MENSAJES OUT ==
