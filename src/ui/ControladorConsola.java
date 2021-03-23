@@ -47,14 +47,14 @@ public class ControladorConsola {
 				break;
 			}
 			case '5': {
-				ucVerGrafico();
+				ucConsultarImportes();
 				break;
 			}
 			case '6': {
 				ucCRUDCategoria();
 				break;
 			}
-			case '8': {
+			case '7': {
 				ucRegistrarSubCategoria();
 				break;
 			}
@@ -140,9 +140,12 @@ public class ControladorConsola {
 		}
 	}
 
-	private void ucVerGrafico() {
+	private void ucConsultarImportes() {
 		vista.mostrarMsg("= IMPORTES =");
-		vista.mostrarMsgs(sistema.qryImportes());
+		// Obtencion de información de usuario
+		int idParent = vista.seleccionarCategoria(sistema.qryCategorias(), "Selecciona una categoría");
+		if (idParent == -1) return;
+		vista.mostrarMsgs(sistema.qryImportes(idParent));
 	}
 
 	public void ucCRUDCategoria() {

@@ -2,13 +2,13 @@ package dominio;
 
 import java.util.List;
 
-import persistencia.IRepositorio;
+import persistencia.IDAL;
 
 public class Sistema {
 
-	IRepositorio repositorio;
+	IDAL repositorio;
 
-	public Sistema(IRepositorio repositorio) {
+	public Sistema(IDAL repositorio) {
 		this.repositorio = repositorio;
 		this.repositorio.inicializar();
 	}
@@ -56,6 +56,14 @@ public class Sistema {
 		}
 	}
 
+	public void registrarApunte(Apunte apunte) {
+		try {
+			repositorio.cmdRegistrarApunte(apunte);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public List<Apunte> qryApuntes() {
 		return repositorio.qryApuntesTodos();
 	}
@@ -72,12 +80,13 @@ public class Sistema {
 		return repositorio.qrySubCategorias(categoria);
 	}
 
-	public List<String> qryImportes(){
-		return repositorio.qryImportes();
+	public List<String> qryImportes(int id){
+		return repositorio.qryImportes(id);
 	}
 
 	public void resetRepositorio(){
 		repositorio.cmdReset();
 	}
+
 
 }

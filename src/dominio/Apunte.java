@@ -27,6 +27,6 @@ public class Apunte {
 
     public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return dateFormat.format(fh) + "," + categoria.id + "," + subCategoria.id + "," + importe + "," + user+ "," + detalle;
+        return dateFormat.format(fh) + ";" + categoria.id + ";" + subCategoria.id + ";" + importe + ";" + user+ ";" + detalle;
     }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 import dominio.Apunte;
 import dominio.Categoria;
 
-public class RepoSQLite implements IRepositorio {
+public class RepoSQLite implements IDAL {
 
 	String dbname = "data/apuntes.db";
 	String script = "data/schemadb.sql";
@@ -138,23 +138,30 @@ public class RepoSQLite implements IRepositorio {
 	}
 
 	@Override
-	public List<String> qryImportes() {
+	public List<String> qryImportes(int id) {
 		// return List.of("NO IMPLEMENTADO");
 		List<String> lista = new ArrayList<>();
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbname);
-			String sql = " SELECT IDCATEGORIA, SUM(IMPORTE) AS VALOR " 
-					+ " FROM APUNTES GROUP BY IDCATEGORIA "
-					+ " UNION " 
-					+ " SELECT IDSUBCATEGORIA, SUM(IMPORTE) " 
-					+ " FROM APUNTES GROUP BY IDSUBCATEGORIA "
+	
+			String sql = " SELECT IDSUBCATEGORIA, DESCRIPCION, SUM(IMPORTE) AS VALOR " 
+					+ " FROM APUNTES, CATEGORIAS "
+					+ " WHERE APUNTES.IDCATEGORIA="+id
+					+ " AND APUNTES.IDSUBCATEGORIA=CATEGORIAS.ID"
+					+ " GROUP BY IDSUBCATEGORIA "
 					+ " ORDER BY VALOR DESC";
+			if(id==0) sql = " SELECT IDCATEGORIA, DESCRIPCION, SUM(IMPORTE) AS VALOR " 
+			+ " FROM APUNTES, CATEGORIAS "
+			+ " WHERE APUNTES.IDCATEGORIA=CATEGORIAS.ID"
+			+ " GROUP BY IDCATEGORIA "
+			+ " ORDER BY VALOR DESC";
 
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next())
-				lista.add(String.format("%2d %4.2f", rs.getInt(1), rs.getFloat(2)));
-
+			while (rs.next()){
+				String linea = String.format("%2d %s %4.2f", rs.getInt(1), rs.getString(2), rs.getFloat(3));
+				lista.add(linea.replace(",","."));
+			}
 			rs.close();
 			stmt.close();
 			conn.close();

@@ -12,9 +12,18 @@
         },
         {
             "type": "java",
-            "name": "Launch Main",
+            "name": "Launch MainConsole",
             "request": "launch",
-            "mainClass": "app.Main",
+            "mainClass": "MainConsole",
+            "projectName": "javaGastosMVC_3d216444"
+        },
+ 
+        {
+            "type": "java",
+            "name": "Launch MainJavaFX",
+            "request": "launch",
+            "vmArgs": "--module-path runtime/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "MainGUI",
             "projectName": "javaGastosMVC_3d216444"
         }
     ]

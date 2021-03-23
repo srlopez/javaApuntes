@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import dominio.Apunte;
 import dominio.Categoria;
 
-public class RepoMFile implements IRepositorio {
+public class RepoMFile implements IDAL {
 
 	String filenameA = "data/apuntes.csv";
 	String filenameC = "data/categorias.csv";
@@ -26,7 +26,7 @@ public class RepoMFile implements IRepositorio {
 	@Override
 	public void inicializar() {
 		listaC = loadFile(filenameC, line -> {
-				try {
+			try {
 				return this.lineToCategoria(line);
 			} catch (Exception e) {
 				// e.printStackTrace();
@@ -66,7 +66,7 @@ public class RepoMFile implements IRepositorio {
 	}
 
 	@Override
-	public void cmdDeleteCategoria(Categoria categoria) throws Exception {		
+	public void cmdDeleteCategoria(Categoria categoria) throws Exception {
 		Categoria c = qryCategoriaID(categoria.id);
 		listaC.remove(c);
 	}
@@ -144,7 +144,8 @@ public class RepoMFile implements IRepositorio {
 					try {
 						T item = mapperFunction.apply(line);
 						// System.out.println(item);
-						if(item != null)	lista.add(item);
+						if (item != null)
+							lista.add(item);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -159,7 +160,7 @@ public class RepoMFile implements IRepositorio {
 	}
 
 	private Apunte lineToApunte(String line) throws Exception {
-		String[] item = line.trim().split(",");
+		String[] item = line.trim().split(";");
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		java.util.Date fh = dateFormat.parse(item[0]);
@@ -176,7 +177,7 @@ public class RepoMFile implements IRepositorio {
 	}
 
 	private Categoria lineToCategoria(String line) throws Exception {
-		String[] item = line.trim().split(",");
+		String[] item = line.trim().split(";");
 		int id = Integer.parseInt(item[0].trim());
 		int idParent = Integer.parseInt(item[1].trim());
 		String descripcion = item[2];
@@ -184,26 +185,29 @@ public class RepoMFile implements IRepositorio {
 	}
 
 	@Override
-	public List<String> qryImportes() {
+	public List<String> qryImportes(int id) {
 		Map<Integer, Float> map = new HashMap<Integer, Float>();
-		try{
-		for (Apunte item : listaA) {
-			Float v = map.getOrDefault(item.categoria.id, (float) 0.0);
-			map.put(item.categoria.id, v + item.importe);
-			v = map.getOrDefault(item.subCategoria.id, (float) 0.0);
-			map.put(item.subCategoria.id, v + item.importe);
+		try {
+			for (Apunte item : listaA) {
+				//System.out.println(item);
+				if ( id==00 ) {
+					Float v = map.getOrDefault(item.categoria.id, (float) 0.0);
+					map.put(item.categoria.id, v + item.importe);
+				}else if( item.categoria.id == id ) {
+					Float v = map.getOrDefault(item.categoria.id, (float) 0.0);
+					map.put(item.subCategoria.id, v + item.importe);
+				}
+			}
+			// Aplicación de programación funcional
+			// para obtener el resultado.
+			return map.entrySet().stream().sorted(Map.Entry.<Integer, Float>comparingByValue().reversed())
+					// .limit(3)
+					.map(e -> String.format("%2d;%s;%4.2f", e.getKey(), qryCategoriaID(e.getKey()).descripcion, e.getValue()))
+					.collect(Collectors.toList());
+					//.map(e -> String.format("%2d %s %4.2f", e.getKey()) + "\t-"+ qryCategoriaID(e.getKey()).descripcion+"-\t" + e.getValue()).collect(Collectors.toList());
+				} catch (Exception e) {
 		}
-		// Aplicación de programación funcional
-		// para obtener el resultado.
-		return map.entrySet()
-			.stream()
-			.sorted(Map.Entry.<Integer, Float>comparingByValue().reversed())
-			// .limit(3)
-			.map(e -> String.format("%2d", e.getKey()) + "\t" + e.getValue()).collect(Collectors.toList());
-		}catch(Exception e){}
 		return new ArrayList<>();
 	}
-
-
 
 }

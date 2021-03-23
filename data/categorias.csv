@@ -1,11 +1,30 @@
- 1, 0,uno
- 2, 0,dos
- 7, 0,siete
-11, 1,once
-12, 1,doce
-22, 2,22dosdos
-77, 7,setenta
-78, 7,sieteyocho
-88, 8,ochoocho
-89, 8,ochonueve
- 8, 0,O C H O
+ 1; 0;casa
+ 2; 0;coche
+ 3; 0;profesional
+ 4; 0;ocio
+ 5; 0;cultura
+ 6; 0;deportes
+10; 1;luz
+11; 1;agua
+12; 1;gas
+13; 1;internet
+20; 2;mantenimiento
+21; 2;gasolina
+22; 2;peajes
+23; 2;parking
+30; 3;equipos
+31; 3;libros
+32; 3;cursos
+33; 3;consumibles
+40; 4;gastronomia
+41; 4;otro1
+42; 4;otro2
+43; 4;otro3
+50; 5;libros
+51; 5;cine
+52; 5;teatros
+53; 5;musica
+60; 6;montaña
+61; 6;bici
+62; 6;surf
+63; 6;tenis

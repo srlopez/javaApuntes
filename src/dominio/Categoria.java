@@ -21,6 +21,6 @@ public class Categoria {
     }
 
     public String toString() {
-        return String.format("%2d,%2d,%s", id, idParent, descripcion);
+        return String.format("%2d;%2d;%s", id, idParent, descripcion);
     }
 }

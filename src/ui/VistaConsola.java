@@ -31,7 +31,7 @@ public class VistaConsola {
         if (modo.ordinal() > ModoTerminal.NORMAL.ordinal() ) {
             // USER
             pln("   4.- Registrar Apunte");
-            pln("   5.- Ver Gráfico de Importes");
+            pln("   5.- Consultar Importes");
             if (modo.ordinal() > ModoTerminal.USER.ordinal()) {
                 // ADMIN
                 pln("   6.- Administrar Categorías «CRUD»");
@@ -103,7 +103,7 @@ public class VistaConsola {
         valores.add(-1);
         if (show) mostrarMsgs(lista);
         int input = -2;
-        while (valores.indexOf(input) < 0)
+        while (valores.indexOf(input) < 0 && input != 0)
             input = leerDatoInt(msg + " (-1=cancelar)");
         return input;    }
 
@@ -114,7 +114,7 @@ public class VistaConsola {
     // == MENSAJES OUT ==
     public void mostrarMsgs(Object qry) {
         for (Object o : (List) qry)
-            pln(o.toString().replace(',', ' '));
+            pln(o.toString().replace(';', ' '));
     }
 
     public void mostrarMsg(String string) {
