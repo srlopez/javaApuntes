@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Calculadora {
+
     public static Map<Area, Data> calcularAreas(Area area, List<Data> list) {
         Map<Area, Data> result = new HashMap<Area, Data>();
         ordenaInverso(list);

@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Border;
@@ -25,6 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import ui.util.*;
+import ui.util.Calculadora.Area;
 
 
 public class ControladorJavaFX {
@@ -43,6 +45,9 @@ public class ControladorJavaFX {
     private URL location;
 
     @FXML
+    private Label lblGastos;
+    
+    @FXML
     private Button btnCalcular;
 
     @FXML
@@ -50,6 +55,7 @@ public class ControladorJavaFX {
 
     @FXML
     void btnCalcularClick(ActionEvent event) {
+        lblGastos.setText("Gastos realizados");
         loadList(0);
         dibujarArea();
     }
@@ -70,7 +76,6 @@ public class ControladorJavaFX {
     }
 
     private void loadList(int id){
-        if(id>9) return;
         list.clear();
         for( String line: sistema.qryImportes(id)){
             //System.out.println(line);
@@ -115,11 +120,14 @@ public class ControladorJavaFX {
         tooltip.setText(String.format("%s\n%dx%d",  data.txt.toUpperCase(),(int) w ,(int) h ));
         btn.setText(txt);
         btn.setTooltip(tooltip);
-        btn.setUserData(data.id);
+        btn.setUserData(data);
         btn.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                loadList((int) btn.getUserData());
+                Data d = (Data) btn.getUserData();
+                if(d.id>9) return;
+                lblGastos.setText(d.txt.toUpperCase());
+                loadList(d.id);
                 dibujarArea();
 
                 //System.out.println(btn.getUserData());
