@@ -26,7 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import ui.util.*;
-import ui.util.Calculadora.Area;
+import ui.util.Calculadora;
 
 
 public class ControladorJavaFX {
