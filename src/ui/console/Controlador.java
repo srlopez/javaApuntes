@@ -1,7 +1,5 @@
 package ui.console;
 
-import java.util.List;
-
 import sistema.ReglasDeNegocio;
 import sistema.Sistema;
 import sistema.model.*;

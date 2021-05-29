@@ -43,7 +43,10 @@ public class Controlador {
     private URL location;
 
     @FXML
-    private Label lblGastos;
+    private Label lblGastos;    
+    
+    @FXML
+    private Label lblImporte;
     
     @FXML
     private Button btnCalcular;
@@ -53,10 +56,16 @@ public class Controlador {
 
     @FXML
     void btnCalcularClick(ActionEvent event) {
-        lblGastos.setText("Gastos realizados");
-        loadList(0);
+        Double importe = loadList(0);
+        setTitles("GASTOS TOTALES", importe);
         dibujarArea();
     }
+
+    void setTitles(String title, double importe){
+        lblGastos.setText(title);
+        lblImporte.setText(String.format("%,.2f €", importe));
+    }
+
 
     @FXML
     void initialize() {
@@ -70,16 +79,22 @@ public class Controlador {
         pnArea.widthProperty().addListener(stageSizeListener);
         pnArea.heightProperty().addListener(stageSizeListener);
 
-        loadList(0); //Se invoca a dibujar desde ChangeListener
+        Double importe = loadList(0); //Se invoca a dibujar desde ChangeListener
+        setTitles("GASTOS TOTALES", importe);
     }
 
-    private void loadList(int id){
+    private double loadList(int id){
+        Double importe = 0.0;
         list.clear();
         for( String line: sistema.qryImportes(id)){
             //System.out.println(line);
             String[] s = line.split(";");
-            list.add(new Data( Double.parseDouble(s[2].replace(",",".")), s[1], Integer.parseInt(s[0].trim()) ));
+            Double valor =  Double.parseDouble(s[2].replace(",","."));
+            Integer id2 = Integer.parseInt(s[0].trim());
+            importe += valor;
+            list.add(new Data( valor, s[1], id2));
         };
+        return importe;
     }
 
     private ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
@@ -107,7 +122,7 @@ public class Controlador {
     private void addControl(Pane pn, Area area, Data data) {
         String line = String.format("%d", area.h * area.w / 100);
         line = String.format("%s\n%dx%d\n%s", line, area.h, area.w, data.txt);
-        line = String.format("%4.2f\n%s", data.v, data.txt);
+        line = String.format("%4.2f €\n%s", data.v, data.txt);
         Control ctrl = newControl(area.x, area.y, area.w, area.h, line, data);
         pn.getChildren().add(ctrl);
     }
@@ -124,8 +139,8 @@ public class Controlador {
             public void handle(ActionEvent event) {
                 Data d = (Data) btn.getUserData();
                 if(d.id>9) return;
-                lblGastos.setText(d.txt.toUpperCase());
-                loadList(d.id);
+                Double importe = loadList(d.id); 
+                setTitles(d.txt.toUpperCase(), importe);
                 dibujarArea();
 
                 //System.out.println(btn.getUserData());

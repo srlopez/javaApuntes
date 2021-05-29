@@ -88,6 +88,7 @@
             <Button id="miBotonA" fx:id="btnCalcular" layoutX="568.0" layoutY="32.0" mnemonicParsing="false" onAction="#btnCalcularClick" text="≪ Principal" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="32.0" />
             <Label fx:id="lblGastos" layoutX="24.0" layoutY="36.0" text="Gastos realizados" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="36.0" />
             <Pane fx:id="pnArea" layoutX="20.0" layoutY="65.0" prefHeight="295.0" prefWidth="610.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="65.0" />
+            <Label fx:id="lblImporte" layoutX="134.0" layoutY="36.0" />
       </children>
     </AnchorPane>
   </children>
